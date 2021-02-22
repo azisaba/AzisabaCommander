@@ -1,0 +1,17 @@
+token: '{YOUR_TOKEN}'
+guild: '{GUILD_ID}'
+channel: '{CHANNEL_ID}'
+
+prefix: '%'
+command:
+  start:
+    base-command: 'docker-compose up -d %option%'
+    option:
+      - 'bungee'
+      - 'pvp'
+
+  stop:
+    base-command: 'docker-compose stop %option%'
+    option:
+      - 'bungee'
+      - 'pvp'
