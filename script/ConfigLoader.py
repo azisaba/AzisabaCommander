@@ -2,6 +2,7 @@
 ########################
 #   Project: AzisabaCommander
 #   Author: testusuke
+#   Class: ConfigLoader
 #   Date: 2020/2/22
 ########################
 
@@ -27,13 +28,11 @@ class ConfigLoader:
                 print(obj)
                 # insert
                 self.token = obj['token']
-                self.guild = obl['guild']
+                self.guild = obj['guild']
                 self.channel = obj['channel']
                 self.prefix = obj['prefix']
                 # command loader
-                
+
         except Exception as e:
             traceback.print_exc()
-
-        pass
 
