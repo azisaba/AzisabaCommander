@@ -5,13 +5,13 @@ channel: '{CHANNEL_ID}'
 prefix: '%'
 command:
   start:
-    base-command: 'docker-compose up -d %option%'
+    base-command: 'docker-compose up -d %OPTION%'
     option:
       - 'bungee'
       - 'pvp'
 
   stop:
-    base-command: 'docker-compose stop %option%'
+    base-command: 'docker-compose stop %OPTION%'
     option:
       - 'bungee'
       - 'pvp'
