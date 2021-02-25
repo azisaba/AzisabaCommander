@@ -9,6 +9,8 @@
 import os
 import yaml
 from pathlib import Path
+import traceback
+import Command
 
 class ConfigLoader:
 
@@ -32,7 +34,26 @@ class ConfigLoader:
                 self.channel = obj['channel']
                 self.prefix = obj['prefix']
                 # command loader
-
+                # init map
+                self.commandMap = dict()
+                for key in obj['command'].keys():
+                    base_command = obj['command'][key]['base-command']
+                    print(base_command)
+                    #exist
+                    command = None
+                    if 'option' in obj['command'][key]:
+                        # init list
+                        option = []
+                        # load options
+                        for value in obj['command'][key]['option']:
+                            option.append(str(value))
+                            print(value)
+                        command = Command.Command(label=key,base_command=base_command,has_option=True,option=option)
+                    else:
+                        command = Command.Command(label=key,base_command=base_command,has_option=False,option=None)
+                    
+                    # insert map
+                    self.commandMap[key] = command
         except Exception as e:
             traceback.print_exc()
 
