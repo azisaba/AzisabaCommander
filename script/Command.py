@@ -6,7 +6,9 @@
 #   Date: 2020/2/23
 ########################
 
-@dataclass
+import dataclasses
+
+@dataclasses.dataclass
 class Command:
     label: str
     base_command: str
