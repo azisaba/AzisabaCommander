@@ -13,4 +13,4 @@ class Command:
     label: str
     base_command: str
     has_option: bool
-    option: list
+    option: dict

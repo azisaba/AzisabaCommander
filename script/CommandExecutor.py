@@ -52,8 +52,8 @@ class CommandExecutor:
                 if not option in command.option:
                     self.loop.create_task(message.channel.send(':boom:エラー: そのようなOptionは存在しません'))
                     return
-                runCommand = command.base_command.replace("%OPTION%", option)
-                print("label: {0} Option: {1} Command: {2}".format(command.label, option, runCommand))
+                runCommand = command.base_command.replace("%OPTION%", command.option[option])
+                print("label: {0} Option: {1} Command: {2}".format(command.label, command.option[option], runCommand))
                 print("running command....")
 
                 # send typing

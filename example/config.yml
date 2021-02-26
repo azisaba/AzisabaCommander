@@ -7,11 +7,10 @@ command:
   start:
     base-command: 'docker-compose up -d %OPTION%'
     option:
-      - 'bungee'
-      - 'pvp'
-
+      bungee: 'azisaba-bungee'
+      pvp: 'azisaba-pvp'
   stop:
     base-command: 'docker-compose stop %OPTION%'
     option:
-      - 'bungee'
-      - 'pvp'
+      bungee: 'azisaba-bungee'
+      pvp: 'azisaba-pvp'
