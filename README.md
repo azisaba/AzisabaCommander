@@ -40,13 +40,13 @@ command:
     start:
         base-command: 'docker-compose up -d %OPTION%'
         option:
-         - 'bungee'
-         - 'lobby'
-         - 'pvp'
+            bungee: 'azisaba-bungee'
+            lobby: 'azisaba-lobby'
+            pvp: 'azisaba-pvp'
 ```
 1. commandの直下にコマンド名を書く  
 2. 実行するCommandをbase-commandに追加する  
-3. optionをListで追加する  
+3. optionをkey-valueで追加する name: 代入する値  
   
 ・実行してみる
 ```shell
