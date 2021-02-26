@@ -43,11 +43,11 @@ class ConfigLoader:
                     command = None
                     if 'option' in obj['command'][key]:
                         # init list
-                        option = []
+                        option = dict()
                         # load options
                         for value in obj['command'][key]['option']:
-                            option.append(str(value))
-                            print(value)
+                            option[value] = obj['command'][key]['option'][value]
+                            print('key: {0} value: {1}'.format(value,option[value]))
                         command = Command.Command(label=key,base_command=base_command,has_option=True,option=option)
                     else:
                         command = Command.Command(label=key,base_command=base_command,has_option=False,option=None)
