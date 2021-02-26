@@ -33,16 +33,7 @@ class CommandExecutor:
             descript = ""
             descript += "AzisabaCommander Discordからのコマンド実行を行います \n"
             embed = Embed(title='Help!',description=descript)
-            #embed.add_field(name='Commands:',value=" ")
-            #embed.add_field(,value='{0}help <- Helpの表示')
-            #embed.add_field(value='{0}search [option] [file_path] [key_word]<- ファイル内の文字列検索'.format(self.prefix))
-            #embed.add_field(value='option: natural <-そのまま ignore <-小・大文字無視 and <-And検索 or <-Or検索')
-            #embed.add_field(value='file_path: ファイルパス(相対パスOK)')
-            #embed.add_field(value='{0}start [option] <- start server'.format(self.prefix))
-            #embed.add_field(value='{0}stop [option] <- stop server'.format(self.prefix))
-            #embed.add_field(value='{0}'.format(self.prefix))
-            #embed.add_field(value='Author: testusuke')
-
+            
             # send
             self.loop.create_task(message.channel.send(embed=embed))
         elif args[0] == 'search':
