@@ -36,6 +36,9 @@ ce = CommandExecutor.CommandExecutor(client,cl.commandMap,prefix)
 @client.event
 async def on_ready():
     print('Login: success!')
+    # send message
+    ch = client.get_guild(int(guild_id)).get_channel(int(channel_id))
+    await ch.send(':wink: **Launched AzisabaCommander!**')
 
 @client.event
 async def on_message(message):
