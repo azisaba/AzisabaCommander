@@ -16,7 +16,7 @@ python3 -m pip install -U "discord.py[voice]"
 ```shell
 git clone https://github.com/azisaba/AzisabaCommander/tree/main
 ```
-・Configファイの準備  
+・Configファイルの準備  
 1. [Discord Developer Portal](https://discordapp.com/developers/applications/)でTokenを取得する  
 2. [Example](example/config.yml)をベースにConfig.ymlを用意する  
 3. Token, DiscordGuild ID, Channel IDを入れる  
