@@ -11,6 +11,7 @@ import yaml
 from pathlib import Path
 import traceback
 import Command
+from collections import OrderedDict
 
 class ConfigLoader:
 
@@ -37,9 +38,23 @@ class ConfigLoader:
                 # init map
                 self.commandMap = dict()
                 for key in obj['command'].keys():
+                    # base command
                     base_command = obj['command'][key]['base-command']
-                    print(base_command)
-                    #exist
+                    print('BaseCommand: {0}'.format(base_command))
+                    # work space
+                    if 'workspace' in obj['command'][key]:
+                        workspace = obj['command'][key]['workspace']
+                        workspace = Path(os.path.abspath(workspace))
+                        # exist
+                        if not self.path.exists:
+                            raise Exception("Not found workspace")
+                            return
+                        workspace = str(workspace)
+                        print('Workspace: {0}'.format(workspace))
+                    else:
+                        workspace = None
+
+                    # exist
                     command = None
                     if 'option' in obj['command'][key]:
                         # init list
@@ -48,9 +63,9 @@ class ConfigLoader:
                         for value in obj['command'][key]['option']:
                             option[value] = obj['command'][key]['option'][value]
                             print('key: {0} value: {1}'.format(value,option[value]))
-                        command = Command.Command(label=key,base_command=base_command,has_option=True,option=option)
+                        command = Command.Command(label=key,base_command=base_command,workspace=workspace,has_option=True,option=option)
                     else:
-                        command = Command.Command(label=key,base_command=base_command,has_option=False,option=None)
+                        command = Command.Command(label=key,base_command=base_command,workspace=workspace,has_option=False,option=None)
                     
                     # insert map
                     self.commandMap[key] = command

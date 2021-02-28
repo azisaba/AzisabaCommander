@@ -12,5 +12,6 @@ import dataclasses
 class Command:
     label: str
     base_command: str
+    workspace: str
     has_option: bool
     option: dict
