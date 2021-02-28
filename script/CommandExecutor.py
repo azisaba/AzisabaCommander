@@ -41,7 +41,19 @@ class CommandExecutor:
             return
         elif args[0] in self.commandMap.keys():
             command = self.commandMap[args[0]]
-            #print(command.label)
+            # workspace
+            if not command.workspace == None:
+                workspace = command.workspace
+                # exist
+                if not os.path.exists(workspace):
+                    # stop running
+                    self.loop.create_task(message.channel.send(':boom:エラー: 指定したworkspaceが見つかりません'))
+                    return
+                # move
+                os.chdir(workspace)
+                # check
+                print('change workspace. path: {0}'.format(str(os.getcwd())))            
+
             if command.has_option == True:
                 # len check
                 if len(args) < 2:
