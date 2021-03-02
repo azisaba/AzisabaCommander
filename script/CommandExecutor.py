@@ -73,15 +73,6 @@ class CommandExecutor:
 
                 # run
                 proc = subprocess.run(runCommand.split(), stdout=PIPE, stderr=PIPE, text=True)
-                # feedback
-                print("result: \n{0}".format(str(proc.stdout)))
-                print("error: \n{0}".format(str(proc.stderr)))
-
-                self.loop.create_task(message.channel.send(':white_check_mark:結果: コマンドを実行しました'))
-                result_str = "**Result**\n```\n{0}\n```".format(str(proc.stdout))
-                error_str = "**Error**\n```\n{0}\n```".format(str(proc.stderr))
-                self.loop.create_task(message.channel.send(result_str))
-                self.loop.create_task(message.channel.send(error_str))
             else:
                 runCommand = command.base_command
                 print("label: {0} Option: {1} Command: {2}".format(command.label, 'None', runCommand))
@@ -92,15 +83,16 @@ class CommandExecutor:
                 
                 # run
                 proc = subprocess.run(runCommand.split(), stdout=PIPE, stderr=PIPE, text=True)
-                # feedback
-                print("result: \n{0}".format(str(proc.stdout)))
-                print("error: \n{0}".format(str(proc.stderr)))
 
-                self.loop.create_task(message.channel.send(':white_check_mark:結果: コマンドを実行しました'))
-                result_str = "**Result**\n```\n{0}\n```".format(str(proc.stdout))
-                error_str = "**Error**\n```\n{0}\n```".format(str(proc.stderr))
-                self.loop.create_task(message.channel.send(result_str))
-                self.loop.create_task(message.channel.send(error_str))
+            # feedback
+            print("result: \n{0}".format(str(proc.stdout)))
+            print("error: \n{0}".format(str(proc.stderr)))
+            # discord
+            self.loop.create_task(message.channel.send(':white_check_mark:結果: コマンドを実行しました'))
+            result_str = "**Result**\n```\n{0}\n```".format(str(proc.stdout))
+            error_str = "**Error**\n```\n{0}\n```".format(str(proc.stderr))
+            self.loop.create_task(message.channel.send(result_str))
+            self.loop.create_task(message.channel.send(error_str))    
         else:
             return
 
