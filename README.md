@@ -43,10 +43,15 @@ command:
             bungee: 'azisaba-bungee'
             lobby: 'azisaba-lobby'
             pvp: 'azisaba-pvp'
+            all:
+             - 'azisaba-bungee'
+             - 'azisaba-lobby'
+             - 'azisaba-pvp'
 ```
 1. commandの直下にコマンド名を書く  
 2. 実行するCommandをbase-commandに追加する  
 3. optionをkey-valueで追加する name: 代入する値  
+(Listで追加すれば複数実行できます)  
   
 ・実行してみる
 ```shell
