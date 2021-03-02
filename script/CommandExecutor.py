@@ -66,41 +66,28 @@ class CommandExecutor:
                     return
                 runCommand = command.base_command.replace("%OPTION%", command.option[option])
                 print("label: {0} Option: {1} Command: {2}".format(command.label, command.option[option], runCommand))
-                print("running command....")
 
-                # send typing
-                self.loop.create_task(message.channel.trigger_typing())
-
-                # run
-                proc = subprocess.run(runCommand.split(), stdout=PIPE, stderr=PIPE, text=True)
-                # feedback
-                print("result: \n{0}".format(str(proc.stdout)))
-                print("error: \n{0}".format(str(proc.stderr)))
-
-                self.loop.create_task(message.channel.send(':white_check_mark:結果: コマンドを実行しました'))
-                result_str = "**Result**\n```\n{0}\n```".format(str(proc.stdout))
-                error_str = "**Error**\n```\n{0}\n```".format(str(proc.stderr))
-                self.loop.create_task(message.channel.send(result_str))
-                self.loop.create_task(message.channel.send(error_str))
             else:
                 runCommand = command.base_command
                 print("label: {0} Option: {1} Command: {2}".format(command.label, 'None', runCommand))
-                print("running command....")
-                
-                # send typing
-                self.loop.create_task(message.channel.trigger_typing())
-                
-                # run
-                proc = subprocess.run(runCommand.split(), stdout=PIPE, stderr=PIPE, text=True)
-                # feedback
-                print("result: \n{0}".format(str(proc.stdout)))
-                print("error: \n{0}".format(str(proc.stderr)))
 
-                self.loop.create_task(message.channel.send(':white_check_mark:結果: コマンドを実行しました'))
-                result_str = "**Result**\n```\n{0}\n```".format(str(proc.stdout))
-                error_str = "**Error**\n```\n{0}\n```".format(str(proc.stderr))
-                self.loop.create_task(message.channel.send(result_str))
-                self.loop.create_task(message.channel.send(error_str))
+            ## Excute
+            print("running command....")
+            # send typing
+            self.loop.create_task(message.channel.trigger_typing())
+            # run
+            proc = subprocess.run(runCommand.split(), stdout=PIPE, stderr=PIPE, text=True)
+            
+            ## feedback
+            print("result: \n{0}".format(str(proc.stdout)))
+            print("error: \n{0}".format(str(proc.stderr)))
+            # discord
+            embed = discord.Embed(title=":white_check_mark: コマンドを実行しました",description='Command: **{0}**'.format(message.content),color=discord.Colour.green())
+            embed.add_field(name='Result',value="```\n{0}\n```".format(str(proc.stdout)),inline=False)
+            embed.add_field(name='Error',value="```\n{0}\n```".format(str(proc.stderr)),inline=False)
+            embed.set_author(name=message.author.name,icon_url=message.author.avatar_url)
+            self.loop.create_task(message.channel.send(embed=embed))
+
         else:
             return
 
