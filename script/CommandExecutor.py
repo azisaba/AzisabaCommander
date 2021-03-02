@@ -66,25 +66,19 @@ class CommandExecutor:
                     return
                 runCommand = command.base_command.replace("%OPTION%", command.option[option])
                 print("label: {0} Option: {1} Command: {2}".format(command.label, command.option[option], runCommand))
-                print("running command....")
 
-                # send typing
-                self.loop.create_task(message.channel.trigger_typing())
-
-                # run
-                proc = subprocess.run(runCommand.split(), stdout=PIPE, stderr=PIPE, text=True)
             else:
                 runCommand = command.base_command
                 print("label: {0} Option: {1} Command: {2}".format(command.label, 'None', runCommand))
-                print("running command....")
-                
-                # send typing
-                self.loop.create_task(message.channel.trigger_typing())
-                
-                # run
-                proc = subprocess.run(runCommand.split(), stdout=PIPE, stderr=PIPE, text=True)
 
-            # feedback
+            ## Excute
+            print("running command....")
+            # send typing
+            self.loop.create_task(message.channel.trigger_typing())
+            # run
+            proc = subprocess.run(runCommand.split(), stdout=PIPE, stderr=PIPE, text=True)
+            
+            ## feedback
             print("result: \n{0}".format(str(proc.stdout)))
             print("error: \n{0}".format(str(proc.stderr)))
             # discord
