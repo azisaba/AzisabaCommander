@@ -61,7 +61,15 @@ class ConfigLoader:
                         option = dict()
                         # load options
                         for value in obj['command'][key]['option']:
-                            option[value] = obj['command'][key]['option'][value]
+                            optionKey = obj['command'][key]['option'][value]
+                            # type
+                            if type(optionKey) is list:
+                                option[value] = optionKey
+                            else:
+                                l = list()
+                                l.append(optionKey)
+                                option[value] = l
+
                             print('key: {0} value: {1}'.format(value,option[value]))
                         command = Command.Command(label=key,base_command=base_command,workspace=workspace,has_option=True,option=option)
                     else:

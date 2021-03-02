@@ -10,9 +10,15 @@ command:
     option:
       bungee: 'azisaba-bungee'
       pvp: 'azisaba-pvp'
+      all:
+        - 'azisaba-bungee'
+        - 'azisaba-pvp'
   stop:
     base-command: 'docker-compose stop %OPTION%'
     workspace: '/opt/minecraft'
     option:
       bungee: 'azisaba-bungee'
       pvp: 'azisaba-pvp'
+      all:
+        - 'azisaba-bungee'
+        - 'azisaba-pvp'

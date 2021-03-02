@@ -13,7 +13,7 @@ import Command
 import asyncio
 import subprocess
 from subprocess import PIPE
-
+import copy
         
 
 class CommandExecutor:
@@ -64,30 +64,34 @@ class CommandExecutor:
                 if not option in command.option:
                     self.loop.create_task(message.channel.send(':boom:エラー: そのようなOptionは存在しません'))
                     return
-                runCommand = command.base_command.replace("%OPTION%", command.option[option])
-                print("label: {0} Option: {1} Command: {2}".format(command.label, command.option[option], runCommand))
+                # loop
+                for cmdOption in command.option[option]:
+                    runCommand = copy.copy(command.base_command).replace("%OPTION%", cmdOption)
+                    print("label: {0} Option: {1} Command: {2}".format(command.label, cmdOption, runCommand))
+                    self.excuteCommand(message=message,command=runCommand)
+
 
             else:
-                runCommand = command.base_command
+                runCommand = copy.copy(command.base_command)
                 print("label: {0} Option: {1} Command: {2}".format(command.label, 'None', runCommand))
-
-            ## Excute
-            print("running command....")
-            # send typing
-            self.loop.create_task(message.channel.trigger_typing())
-            # run
-            proc = subprocess.run(runCommand.split(), stdout=PIPE, stderr=PIPE, text=True)
+                self.excuteCommand(message=message,command=runCommand)
             
-            ## feedback
-            print("result: \n{0}".format(str(proc.stdout)))
-            print("error: \n{0}".format(str(proc.stderr)))
-            # discord
-            embed = discord.Embed(title=":white_check_mark: コマンドを実行しました",description='Command: **{0}**'.format(message.content),color=discord.Colour.green())
-            embed.add_field(name='Result',value="```\n{0}\n```".format(str(proc.stdout)),inline=False)
-            embed.add_field(name='Error',value="```\n{0}\n```".format(str(proc.stderr)),inline=False)
-            embed.set_author(name=message.author.name,icon_url=message.author.avatar_url)
-            self.loop.create_task(message.channel.send(embed=embed))
 
         else:
             return
 
+    def excuteCommand(self,message,command):
+        # send typing
+        self.loop.create_task(message.channel.trigger_typing())
+        # run
+        proc = subprocess.run(command.split(), stdout=PIPE, stderr=PIPE, text=True)
+            
+        ## feedback
+        print("result: \n{0}".format(str(proc.stdout)))
+        print("error: \n{0}".format(str(proc.stderr)))
+        # discord
+        embed = discord.Embed(title=":white_check_mark: コマンドを実行しました",description='Command: **{0}**'.format(message.content),color=discord.Colour.green())
+        embed.add_field(name='Result',value="```\n{0}\n```".format(str(proc.stdout)),inline=False)
+        embed.add_field(name='Error',value="```\n{0}\n```".format(str(proc.stderr)),inline=False)
+        embed.set_author(name=message.author.name,icon_url=message.author.avatar_url)
+        self.loop.create_task(message.channel.send(embed=embed))
